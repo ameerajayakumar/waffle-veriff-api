@@ -8,7 +8,7 @@ const {
   createEmptyDataSet,
 } = require('../helper/randomData');
 
-xdescribe('New Session Endpoint', () => {
+describe('New Session Endpoint', () => {
   describe('Positive flows', () => {
     it('POST/ with default data set', async () => {
       const data = await createDefaultDataSet();
