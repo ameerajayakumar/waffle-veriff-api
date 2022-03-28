@@ -1,4 +1,5 @@
-# waffle-veriff-api
+# Veriff Demo Application: API Testing
+
 API Testing of Veriff Demo Application
 
 #Tech Stack Used:
@@ -9,6 +10,6 @@ API Testing of Veriff Demo Application
 
 **Framework:** Mocha BDD
 
-**Reporting:** Mochawesome 
+**Reporting:** Mochawesome
 
 **Tools/Others:** npm, nodejs, babel
