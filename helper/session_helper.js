@@ -1,5 +1,5 @@
 import request from '../config/newSessionSuperTest';
-const {createValidDataSet} = require('../helper/randomData');
+const { createValidDataSet } = require('../helper/randomData');
 
 export const createNewSession = async () => {
   const url = '';
@@ -8,7 +8,6 @@ export const createNewSession = async () => {
     .post(url)
     .send(data)
     .then((response) => {
-      expect(response.status).to.be.equal(200);
-      expect(response.body).to.not.be.empty;
+      return response.body.sessionToken;
     });
 };
