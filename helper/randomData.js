@@ -35,8 +35,8 @@ export const createDefaultDataSet = async () => {
 };
 
 export const createEmptyDataSet = async () => {
-return {
-  full_name: '',
-  additionalData: '',
+  return {
+    full_name: '',
+    additionalData: '',
+  };
 };
-}

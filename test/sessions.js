@@ -2,7 +2,7 @@ import request from '../config/sessionsSuperTest';
 import { expect } from 'chai';
 const { createValidDataSet } = require('../helper/randomData');
 const { createNewSession } = require('../helper/session_helper');
-let token, data;
+let token, data, newData;
 const url = '';
 
 describe('Sessions Endpoint', () => {
@@ -44,6 +44,36 @@ describe('Sessions Endpoint', () => {
       }
     });
 
+    it('PUT/ update language for id', async () => {
+      newData = {
+        document_country: 'BH',
+        document_type: 'PASSPORT',
+        lang: 'es-latam',
+      };
+      await request
+        .get(`?id=${sessionId}`)
+        .set('Authorization', `Bearer ${token}`)
+        .send(newData)
+        .expect(200);
+    });
+
+    it('DELETE/ session for id', async () => {
+      token = await createNewSession();
+      return await request
+        .get(url)
+        .set('Authorization', `Bearer ${token}`)
+        .then((response) => {
+          expect(response.status).to.be.equal(200);
+          sessionId = response.body.id;
+          if (sessionId) {
+            request
+              .delete(`?id=${sessionId}`)
+              .set('Authorization', `Bearer ${token}`)
+              .expect(200);
+          }
+        });
+    });
+
     describe('Negative flows', () => {
       it('GET/ request session without user authorization', async () => {
         token = await createNewSession();
@@ -61,6 +91,22 @@ describe('Sessions Endpoint', () => {
             .set('Authorization', `Bearer ${token}`)
             .expect(404);
         }
+      });
+
+      it('PUT/ fails to include new property ', async () => {
+        newData = {
+          newOption: 'helloworld',
+          document_country: 'BH',
+          document_type: 'PASSPORT',
+          lang: 'es-latam',
+        };
+        await request
+          .get(`?id=${sessionId}`)
+          .set('Authorization', `Bearer ${token}`)
+          .send(newData)
+          .then((response) => {
+            expect(response.body).to.not.have.property('newOption');
+          });
       });
     });
   });
